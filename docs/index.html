@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Official project page for GABL, a geometry-aware framework for real-time 6-DoF bronchoscope localization."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="GABL | Geometry-Aware Camera Localization for Bronchoscopy"
+    />
+    <meta
+      property="og:description"
+      content="Geometry-aware, accurate, and real-time 6-DoF bronchoscope localization."
+    />
+    <meta
+      property="og:image"
+      content="https://paulili08.github.io/GABL/og.png"
+    />
+    <title>GABL | Geometry-Aware Camera Localization for Bronchoscopy</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main>
+      <header class="site-header">
+        <a class="brand" href="#top" aria-label="GABL home">GABL</a>
+        <nav aria-label="Primary navigation">
+          <a href="#method">Method</a>
+          <a href="#results">Results</a>
+          <a href="#citation">Citation</a>
+        </nav>
+      </header>
+
+      <section class="hero" id="top">
+        <div class="hero-glow" aria-hidden="true"></div>
+        <p class="eyebrow">
+          <span>ACM Multimedia 2026</span>
+          <span class="eyebrow-divider"></span>
+          Rio de Janeiro
+        </p>
+        <h1>
+          Geometry-Aware Camera Localization
+          <span>for Bronchoscopy</span>
+        </h1>
+        <p class="hero-lede">
+          Fusing preoperative airway geometry with intraoperative video for
+          accurate, stable, and real-time 6-DoF bronchoscope localization.
+        </p>
+
+        <div class="authors" aria-label="Paper authors">
+          <span>Lumin Chen</span><span>Qingyao Tian</span>
+          <span>Jinpeng Li</span><span>Haoyu Jiang</span>
+          <span>Huai Liao</span><span>Xinyan Huang</span>
+          <span>Hongbin Liu</span><span>Dong Yi</span>
+        </div>
+        <p class="affiliations">
+          Chinese Academy of Sciences · Sun Yat-sen University
+        </p>
+
+        <div class="actions">
+          <a class="button button-primary" href="./paper.pdf">
+            Paper <span aria-hidden="true">↓</span>
+          </a>
+          <a
+            class="button button-secondary"
+            href="https://github.com/paulili08/GABL"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Code <span aria-hidden="true">↗</span>
+          </a>
+          <a
+            class="button button-ghost"
+            href="https://doi.org/10.1145/3767308.3835259"
+            target="_blank"
+            rel="noreferrer"
+          >
+            DOI <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+
+        <div class="hero-figure">
+          <img
+            src="./assets/overview.webp"
+            alt="GABL overview and quantitative comparison with prior bronchoscopy localization methods"
+          />
+        </div>
+      </section>
+
+      <section class="section overview-section" id="method">
+        <div class="section-heading">
+          <p class="section-kicker">Why geometry matters</p>
+          <h2>One framework, three complementary scales.</h2>
+        </div>
+        <p class="abstract">
+          Camera localization in bronchoscopy is challenged by repetitive
+          anatomy, limited texture, and strict latency requirements. GABL
+          injects explicit geometric supervision at the structural, temporal,
+          and appearance levels, combining preoperative CT priors with
+          intraoperative observations in a unified localization framework.
+        </p>
+
+        <div class="contribution-grid">
+          <article class="contribution-card">
+            <span class="card-index">01</span>
+            <h3>Structure</h3>
+            <p>
+              An anchor graph derived from preoperative CT provides dense
+              anatomical priors for coarse-to-fine localization.
+            </p>
+          </article>
+          <article class="contribution-card">
+            <span class="card-index">02</span>
+            <h3>Motion</h3>
+            <p>
+              A causal Transformer models temporal dynamics to stabilize
+              predictions and reduce trajectory drift.
+            </p>
+          </article>
+          <article class="contribution-card">
+            <span class="card-index">03</span>
+            <h3>Appearance</h3>
+            <p>
+              RGB-depth matching aligns intraoperative observations with
+              rendered geometry in a shared representation space.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section framework-section">
+        <div class="section-heading compact">
+          <p class="section-kicker">Framework</p>
+          <h2>Geometry-aware supervision from CT to trajectory.</h2>
+        </div>
+        <figure class="paper-figure">
+          <img
+            src="./assets/framework.webp"
+            alt="Detailed GABL architecture showing prior modeling, encoders, matching, temporal tracking, and anchor localization"
+            loading="lazy"
+          />
+          <figcaption>
+            GABL jointly learns anchor localization, temporal tracking, and
+            appearance-geometry matching.
+          </figcaption>
+        </figure>
+      </section>
+
+      <section class="results-band" id="results">
+        <div class="results-inner">
+          <div class="section-heading light compact">
+            <p class="section-kicker">Results</p>
+            <h2>Accurate enough to navigate. Fast enough to guide.</h2>
+          </div>
+          <div class="metric-grid">
+            <article class="metric">
+              <p class="metric-value">7.01<span>mm</span></p>
+              <p class="metric-label">Translation ATE</p>
+              <p class="metric-delta">8.37% lower</p>
+            </article>
+            <article class="metric">
+              <p class="metric-value">29.56<span>deg</span></p>
+              <p class="metric-label">Rotation ATE</p>
+              <p class="metric-delta">31.76% lower</p>
+            </article>
+            <article class="metric">
+              <p class="metric-value">61.04<span>%</span></p>
+              <p class="metric-label">SR-5</p>
+              <p class="metric-delta">Best reported</p>
+            </article>
+            <article class="metric">
+              <p class="metric-value">33.6<span>FPS</span></p>
+              <p class="metric-label">Inference speed</p>
+              <p class="metric-delta">Real-time</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section qualitative-section">
+        <div class="section-heading compact">
+          <p class="section-kicker">Qualitative localization</p>
+          <h2>Predicted trajectories closely follow the airway geometry.</h2>
+        </div>
+        <figure class="paper-figure qualitative">
+          <img
+            src="./assets/qualitative.webp"
+            alt="Ground-truth and predicted bronchoscope trajectories overlaid on three airway models"
+            loading="lazy"
+          />
+        </figure>
+      </section>
+
+      <section class="section citation-section" id="citation">
+        <div class="section-heading compact">
+          <p class="section-kicker">Citation</p>
+          <h2>Build on GABL.</h2>
+        </div>
+        <pre><code>@inproceedings{chen2026gabl,
+  title     = {Geometry-Aware Camera Localization for Bronchoscopy},
+  author    = {Chen, Lumin and Tian, Qingyao and Li, Jinpeng and
+               Jiang, Haoyu and Liao, Huai and Huang, Xinyan and
+               Liu, Hongbin and Yi, Dong},
+  booktitle = {Proceedings of the 34th ACM International Conference
+               on Multimedia},
+  year      = {2026},
+  doi       = {10.1145/3767308.3835259}
+}</code></pre>
+      </section>
+
+      <footer>
+        <p>
+          GABL · Geometry-Aware Camera Localization for Bronchoscopy · MM 2026
+        </p>
+        <a href="#top">Back to top ↑</a>
+      </footer>
+    </main>
+  </body>
+</html>
