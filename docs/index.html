@@ -106,59 +106,110 @@
           real-time navigation.
         </p>
 
-        <figure class="paper-figure evolution-figure">
-          <img
-            src="./assets/model-evolution.png"
-            alt="Evolution from PANSv1 and PANSv2 to BREATH-VL and GABL, with methods, contributions, accuracy, success rates, and inference speed"
-            loading="lazy"
-          />
-        </figure>
+        <div class="evolution-track" aria-label="Four generations of bronchoscope localization models">
+          <article class="generation-card generation-blue">
+            <header>
+              <span class="generation-index">01</span>
+              <div><p>Generation v1</p><h3>PANS</h3></div>
+            </header>
+            <div class="generation-body">
+              <section>
+                <h4>Method</h4>
+                <ul><li>Particle filter</li><li>Depth odometry</li></ul>
+              </section>
+              <section class="generation-contribution">
+                <h4>Contribution</h4>
+                <p>Fuses motion, anatomy, and geometry for robust real-time tracking.</p>
+              </section>
+              <dl class="generation-metrics">
+                <div><dt>ATE</dt><dd>9.09 mm</dd></div>
+                <div><dt>SR-5 / SR-10</dt><dd>28.4% / 70.0%</dd></div>
+                <div><dt>Speed</dt><dd>≈15 FPS</dd></div>
+              </dl>
+            </div>
+            <footer>
+              <span>MICCAI 2024</span>
+              <a href="https://arxiv.org/abs/2407.05554" target="_blank" rel="noreferrer">Paper <span aria-hidden="true">↗</span></a>
+            </footer>
+          </article>
 
-        <div class="paper-grid" aria-label="Four generations of localization models">
-          <a
-            class="paper-card"
-            href="https://arxiv.org/abs/2407.05554"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <span class="paper-version">v1 · MICCAI 2024</span>
-            <h3>PANS</h3>
-            <p>Particle filtering combines motion, anatomy, and geometry for robust real-time tracking.</p>
-            <span class="paper-link">Read paper <span aria-hidden="true">↗</span></span>
-          </a>
-          <a
-            class="paper-card"
-            href="https://arxiv.org/abs/2505.24249"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <span class="paper-version">v2 · MICCAI 2025</span>
-            <h3>PANSv2</h3>
-            <p>Endoscopic foundation models and automatic re-initialization improve generalization and recovery.</p>
-            <span class="paper-link">Read paper <span aria-hidden="true">↗</span></span>
-          </a>
-          <a
-            class="paper-card"
-            href="https://arxiv.org/abs/2601.03713"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <span class="paper-version">v3 · 2026</span>
-            <h3>BREATH-VL</h3>
-            <p>Vision-language semantics initialize geometric registration in the correct airway branch.</p>
-            <span class="paper-link">Read paper <span aria-hidden="true">↗</span></span>
-          </a>
-          <a
-            class="paper-card featured"
-            href="https://arxiv.org/abs/2608.07116"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <span class="paper-version">v4 · ACM MM 2026</span>
-            <h3>GABL</h3>
-            <p>Dense multi-scale geometry enables accurate, stable, and real-time 6-DoF localization.</p>
-            <span class="paper-link">Read paper <span aria-hidden="true">↗</span></span>
-          </a>
+          <article class="generation-card generation-orange">
+            <header>
+              <span class="generation-index">02</span>
+              <div><p>Generation v2</p><h3>PANSv2</h3></div>
+            </header>
+            <div class="generation-body">
+              <section>
+                <h4>Method</h4>
+                <ul><li>Endoscopic foundation models</li><li>Landmark alignment</li></ul>
+              </section>
+              <section class="generation-contribution">
+                <h4>Contribution</h4>
+                <p>Combines transferable visual features with automatic re-initialization.</p>
+              </section>
+              <dl class="generation-metrics">
+                <div><dt>ATE</dt><dd>8.68 mm</dd></div>
+                <div><dt>SR-5 / SR-10</dt><dd>46.5% / 73.0%</dd></div>
+                <div><dt>Speed</dt><dd>≈5 FPS</dd></div>
+              </dl>
+            </div>
+            <footer>
+              <span>MICCAI 2025</span>
+              <a href="https://arxiv.org/abs/2505.24249" target="_blank" rel="noreferrer">Paper <span aria-hidden="true">↗</span></a>
+            </footer>
+          </article>
+
+          <article class="generation-card generation-blue">
+            <header>
+              <span class="generation-index">03</span>
+              <div><p>Generation v3</p><h3>BREATH-VL</h3></div>
+            </header>
+            <div class="generation-body">
+              <section>
+                <h4>Method</h4>
+                <ul><li>Vision-language model</li><li>Motion-context prompt</li><li>Geometric registration</li></ul>
+              </section>
+              <section class="generation-contribution">
+                <h4>Contribution</h4>
+                <p>Uses VLM semantics to initialize registration in the correct airway branch.</p>
+              </section>
+              <dl class="generation-metrics">
+                <div><dt>ATE</dt><dd>7.60 mm</dd></div>
+                <div><dt>SR-5 / SR-10</dt><dd>44.4% / 75.8%</dd></div>
+                <div><dt>Speed</dt><dd>5.6 FPS</dd></div>
+              </dl>
+            </div>
+            <footer>
+              <span>arXiv 2026</span>
+              <a href="https://arxiv.org/abs/2601.03713" target="_blank" rel="noreferrer">Paper <span aria-hidden="true">↗</span></a>
+            </footer>
+          </article>
+
+          <article class="generation-card generation-current">
+            <header>
+              <span class="generation-index">04</span>
+              <div><p>Generation v4</p><h3>GABL</h3></div>
+            </header>
+            <div class="generation-body">
+              <section>
+                <h4>Method</h4>
+                <ul><li>Anchor graph</li><li>Causal Transformer</li><li>RGB-depth matching</li></ul>
+              </section>
+              <section class="generation-contribution">
+                <h4>Contribution</h4>
+                <p>Learns dense multi-scale geometry for accurate real-time localization.</p>
+              </section>
+              <dl class="generation-metrics">
+                <div><dt>ATE</dt><dd>7.01 mm</dd></div>
+                <div><dt>SR-5 / SR-10</dt><dd>61.04% / 83.66%</dd></div>
+                <div><dt>Speed</dt><dd>33.6 FPS</dd></div>
+              </dl>
+            </div>
+            <footer>
+              <span>ACM MM 2026</span>
+              <a href="https://arxiv.org/abs/2608.07116" target="_blank" rel="noreferrer">Paper <span aria-hidden="true">↗</span></a>
+            </footer>
+          </article>
         </div>
       </section>
 
