@@ -477,6 +477,83 @@ h1 span {
   background: rgba(0, 0, 0, 0.12);
 }
 
+.evolution-figure {
+  padding: 12px;
+  box-shadow: none;
+}
+
+.paper-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 22px;
+}
+
+.paper-card {
+  display: flex;
+  min-height: 260px;
+  flex-direction: column;
+  padding: 24px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.paper-card:hover,
+.paper-card:focus-visible {
+  border-color: color-mix(in srgb, var(--green) 35%, var(--line));
+  box-shadow: 0 16px 38px rgba(24, 58, 47, 0.1);
+  transform: translateY(-4px);
+}
+
+.paper-card.featured {
+  color: var(--white);
+  background: var(--green-dark);
+  border-color: var(--green-dark);
+}
+
+.paper-version {
+  color: var(--green);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.paper-card.featured .paper-version,
+.paper-card.featured .paper-link {
+  color: #9ad7be;
+}
+
+.paper-card h3 {
+  margin: 23px 0 12px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.75rem;
+  font-weight: 500;
+}
+
+.paper-card p {
+  margin: 0 0 24px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.paper-card.featured p {
+  color: #c7d8d1;
+}
+
+.paper-link {
+  margin-top: auto;
+  color: var(--green);
+  font-size: 0.82rem;
+  font-weight: 760;
+}
+
 .overview-section {
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
@@ -1007,6 +1084,14 @@ footer a {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .paper-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .paper-card {
+    min-height: 230px;
+  }
+
   .generation-card::after {
     display: none !important;
   }
@@ -1079,6 +1164,14 @@ footer a {
 
   .evolution-track {
     grid-template-columns: 1fr;
+  }
+
+  .paper-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .paper-card {
+    min-height: 0;
   }
 
   .generation-body {
