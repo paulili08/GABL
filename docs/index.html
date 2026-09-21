@@ -28,7 +28,10 @@
       <header class="site-header">
         <a class="brand" href="#top" aria-label="GABL home">GABL</a>
         <nav aria-label="Primary navigation">
+          <a href="#evolution">Evolution</a>
           <a href="#method">Method</a>
+          <a href="#components">Components</a>
+          <a href="#ablations">Ablations</a>
           <a href="#results">Results</a>
           <a href="#citation">Citation</a>
         </nav>
@@ -87,6 +90,75 @@
             src="./assets/overview.webp"
             alt="GABL overview and quantitative comparison with prior bronchoscopy localization methods"
           />
+        </div>
+      </section>
+
+      <section class="section evolution-section" id="evolution">
+        <div class="section-heading compact">
+          <p class="section-kicker">Research trajectory</p>
+          <h2>Four generations, one pursuit: reliable localization.</h2>
+        </div>
+        <p class="section-intro">
+          Our bronchoscope localization research has progressed from
+          probabilistic tracking to foundation models, vision-language
+          reasoning, and finally dense geometry-aware localization. Each
+          generation addresses a different barrier to accurate, robust, and
+          real-time navigation.
+        </p>
+
+        <figure class="paper-figure evolution-figure">
+          <img
+            src="./assets/model-evolution.png"
+            alt="Evolution from PANSv1 and PANSv2 to BREATH-VL and GABL, with methods, contributions, accuracy, success rates, and inference speed"
+            loading="lazy"
+          />
+        </figure>
+
+        <div class="paper-grid" aria-label="Four generations of localization models">
+          <a
+            class="paper-card"
+            href="https://arxiv.org/abs/2407.05554"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <span class="paper-version">v1 · MICCAI 2024</span>
+            <h3>PANS</h3>
+            <p>Particle filtering combines motion, anatomy, and geometry for robust real-time tracking.</p>
+            <span class="paper-link">Read paper <span aria-hidden="true">↗</span></span>
+          </a>
+          <a
+            class="paper-card"
+            href="https://arxiv.org/abs/2505.24249"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <span class="paper-version">v2 · MICCAI 2025</span>
+            <h3>PANSv2</h3>
+            <p>Endoscopic foundation models and automatic re-initialization improve generalization and recovery.</p>
+            <span class="paper-link">Read paper <span aria-hidden="true">↗</span></span>
+          </a>
+          <a
+            class="paper-card"
+            href="https://arxiv.org/abs/2601.03713"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <span class="paper-version">v3 · 2026</span>
+            <h3>BREATH-VL</h3>
+            <p>Vision-language semantics initialize geometric registration in the correct airway branch.</p>
+            <span class="paper-link">Read paper <span aria-hidden="true">↗</span></span>
+          </a>
+          <a
+            class="paper-card featured"
+            href="https://arxiv.org/abs/2608.07116"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <span class="paper-version">v4 · ACM MM 2026</span>
+            <h3>GABL</h3>
+            <p>Dense multi-scale geometry enables accurate, stable, and real-time 6-DoF localization.</p>
+            <span class="paper-link">Read paper <span aria-hidden="true">↗</span></span>
+          </a>
         </div>
       </section>
 
@@ -149,6 +221,221 @@
         </figure>
       </section>
 
+      <section class="section components-section" id="components">
+        <div class="section-heading compact">
+          <p class="section-kicker">Inside GABL</p>
+          <h2>Three components connect video, geometry, and pose.</h2>
+        </div>
+        <p class="section-intro">
+          GABL encodes intraoperative temporal context, organizes patient-specific
+          airway geometry, and dynamically combines global detection with local
+          tracking to produce a robust 6-DoF trajectory.
+        </p>
+
+        <div class="component-stack">
+          <article class="component-panel">
+            <div class="component-copy">
+              <span class="component-number">01</span>
+              <div>
+                <h3>Video temporal modeling</h3>
+                <p>
+                  A causal Transformer fuses the current frame with historical
+                  RGB, pose, and depth embeddings. Random history dropout during
+                  training improves robustness while the lower-triangular mask
+                  preserves online inference.
+                </p>
+              </div>
+            </div>
+            <figure class="component-figure">
+              <img
+                src="./assets/video-temporal-modeling.png"
+                alt="Video temporal modeling with RGB, pose, and depth encoders feeding a causal Transformer"
+                loading="lazy"
+              />
+            </figure>
+          </article>
+
+          <article class="component-panel">
+            <div class="component-copy">
+              <span class="component-number">02</span>
+              <div>
+                <h3>3D geometric prior modeling</h3>
+                <p>
+                  Preoperative CT is converted into an airway mesh, centerline,
+                  and anchor tree. A graph encoder captures global topology,
+                  while pose and depth encoders preserve fine local geometry.
+                </p>
+              </div>
+            </div>
+            <figure class="component-figure">
+              <img
+                src="./assets/geometric-prior-modeling.png"
+                alt="Geometric prior modeling from CT and airway mesh to global topology and local anchor geometry"
+                loading="lazy"
+              />
+            </figure>
+          </article>
+
+          <article class="component-panel">
+            <div class="component-copy">
+              <span class="component-number">03</span>
+              <div>
+                <h3>6-DoF pose decoding</h3>
+                <p>
+                  Coarse-to-fine anchor localization supplies an absolute pose,
+                  RGB-depth matching verifies geometric consistency, and temporal
+                  tracking provides smooth incremental updates between frames.
+                </p>
+              </div>
+            </div>
+            <figure class="component-figure">
+              <img
+                src="./assets/pose-decoding.png"
+                alt="Pose decoding pipeline with pose detector, RGB-depth matcher, and pose tracker"
+                loading="lazy"
+              />
+            </figure>
+          </article>
+        </div>
+      </section>
+
+      <section class="section ablation-section" id="ablations">
+        <div class="section-heading compact">
+          <p class="section-kicker">Ablation studies</p>
+          <h2>Every component earns its place.</h2>
+        </div>
+        <p class="section-intro">
+          We isolate the contribution of each localization component, compare
+          temporal data augmentation strategies, and identify the history
+          dropout rate that best balances accuracy and robustness.
+        </p>
+
+        <div class="ablation-stack">
+          <article class="ablation-card">
+            <div class="table-heading">
+              <span>01</span>
+              <div>
+                <h3>Localization components</h3>
+                <p>Removing any module degrades the complete system.</p>
+              </div>
+            </div>
+            <div class="table-scroll" tabindex="0" aria-label="Scrollable localization component ablation table">
+              <table>
+                <caption>Localization component ablation results</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Setting</th>
+                    <th scope="col">ATE<sub>trans</sub> <span aria-label="lower is better">↓</span></th>
+                    <th scope="col">ATE<sub>rot</sub> <span aria-label="lower is better">↓</span></th>
+                    <th scope="col">SR-5 <span aria-label="higher is better">↑</span></th>
+                    <th scope="col">SR-10 <span aria-label="higher is better">↑</span></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">w/o GCN</th>
+                    <td>10.67</td><td>31.48</td><td>57.59</td><td>78.55</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">w/o Pose Regressor</th>
+                    <td>9.31</td><td>107.54</td><td>41.09</td><td>77.09</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">w/o Pose Tracker</th>
+                    <td>16.48</td><td>38.43</td><td>53.57</td><td>82.60</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">w/o Matcher</th>
+                    <td>7.63</td><td>30.86</td><td>58.09</td><td>82.66</td>
+                  </tr>
+                  <tr class="best-row">
+                    <th scope="row">Full Model</th>
+                    <td>7.01</td><td>29.56</td><td>61.04</td><td>83.66</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+
+          <article class="ablation-card">
+            <div class="table-heading">
+              <span>02</span>
+              <div>
+                <h3>Data augmentation</h3>
+                <p>Skip and reverse augmentation are complementary.</p>
+              </div>
+            </div>
+            <div class="table-scroll" tabindex="0" aria-label="Scrollable data augmentation ablation table">
+              <table>
+                <caption>Data augmentation setting ablation results</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Skip</th>
+                    <th scope="col">Reverse</th>
+                    <th scope="col">ATE<sub>trans</sub> <span aria-label="lower is better">↓</span></th>
+                    <th scope="col">ATE<sub>rot</sub> <span aria-label="lower is better">↓</span></th>
+                    <th scope="col">SR-5 <span aria-label="higher is better">↑</span></th>
+                    <th scope="col">SR-10 <span aria-label="higher is better">↑</span></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="setting-off" aria-label="disabled">–</span></td>
+                    <td><span class="setting-off" aria-label="disabled">–</span></td>
+                    <td>7.97</td><td>31.71</td><td>54.75</td><td>80.72</td>
+                  </tr>
+                  <tr>
+                    <td><span class="setting-on" aria-label="enabled">✓</span></td>
+                    <td><span class="setting-off" aria-label="disabled">–</span></td>
+                    <td>7.84</td><td>32.24</td><td>58.02</td><td>82.08</td>
+                  </tr>
+                  <tr>
+                    <td><span class="setting-off" aria-label="disabled">–</span></td>
+                    <td><span class="setting-on" aria-label="enabled">✓</span></td>
+                    <td>7.71</td><td>33.56</td><td>59.65</td><td>81.52</td>
+                  </tr>
+                  <tr class="best-row">
+                    <td><span class="setting-on" aria-label="enabled">✓</span></td>
+                    <td><span class="setting-on" aria-label="enabled">✓</span></td>
+                    <td>7.01</td><td>29.56</td><td>61.04</td><td>83.66</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+
+          <article class="ablation-card">
+            <div class="table-heading">
+              <span>03</span>
+              <div>
+                <h3>History dropout</h3>
+                <p>A 0.75 dropout rate gives the strongest overall result.</p>
+              </div>
+            </div>
+            <div class="table-scroll" tabindex="0" aria-label="Scrollable causal Transformer dropout ablation table">
+              <table>
+                <caption>Causal Transformer dropout rate ablation results</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Dropout rate</th>
+                    <th scope="col">ATE<sub>trans</sub> <span aria-label="lower is better">↓</span></th>
+                    <th scope="col">ATE<sub>rot</sub> <span aria-label="lower is better">↓</span></th>
+                    <th scope="col">SR-5 <span aria-label="higher is better">↑</span></th>
+                    <th scope="col">SR-10 <span aria-label="higher is better">↑</span></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><th scope="row">0.25</th><td>8.04</td><td>31.51</td><td>57.94</td><td>83.12</td></tr>
+                  <tr><th scope="row">0.50</th><td>7.59</td><td>30.76</td><td>58.27</td><td>82.74</td></tr>
+                  <tr class="best-row"><th scope="row">0.75</th><td>7.01</td><td>29.56</td><td>61.04</td><td>83.66</td></tr>
+                  <tr><th scope="row">1.0</th><td>7.94</td><td>31.25</td><td>58.57</td><td>82.48</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+        </div>
+      </section>
+
       <section class="results-band" id="results">
         <div class="results-inner">
           <div class="section-heading light compact">
@@ -176,6 +463,27 @@
               <p class="metric-label">Inference speed</p>
               <p class="metric-delta">Real-time</p>
             </article>
+          </div>
+
+          <div class="results-demo">
+            <div class="results-demo-copy">
+              <p class="section-kicker">Localization in action</p>
+              <h3>From the live RGB view to a global airway pose.</h3>
+              <p>
+                The rendered view follows the intraoperative video while the
+                global panel tracks the predicted bronchoscope position inside
+                the airway.
+              </p>
+            </div>
+            <figure class="demo-figure">
+              <img
+                src="./assets/localization-demo.gif"
+                alt="Animated GABL localization result showing RGB input, rendered airway view, and global camera position"
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption>RGB observation · geometry-rendered view · global localization</figcaption>
+            </figure>
           </div>
         </div>
       </section>
